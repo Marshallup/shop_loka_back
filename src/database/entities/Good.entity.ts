@@ -16,7 +16,7 @@ export class Good {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ nullable: true })
   mainPhoto: string;
 
   @Column({ type: 'varchar', length: 255 })

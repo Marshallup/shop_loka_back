@@ -24,9 +24,10 @@
     "migration:generate": "yarn typeorm migration:generate ./src/database/migrations/migration -d ./src/database/typeorm-data-source.ts",
     "migration:run": "yarn typeorm migration:run -d ./src/database/typeorm-data-source.ts",
     "migration:revert": "yarn typeorm migration:revert -d ./src/database/typeorm-data-source.ts",
+    "schema:drop": "yarn typeorm schema:drop -d ./src/database/typeorm-data-source.ts",
     "seed:config": "ts-node ./node_modules/typeorm-seeding/dist/cli.js config -n ./src/config/typeorm-config-migrations.ts",
     "seed:run": "ts-node ./node_modules/typeorm-seeding/dist/cli.js seed -n ./src/config/typeorm-config-migrations.ts",
-    "db:refresh": "yarn typeorm schema:drop -d ./src/database/typeorm-data-source.ts && yarn migration:run && yarn seed:run"
+    "db:refresh": "yarn schema:drop && yarn migration:run && yarn seed:run"
   },
   "dependencies": {
     "@faker-js/faker": "^7.5.0",

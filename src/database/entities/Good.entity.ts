@@ -37,7 +37,7 @@ export class Good {
   @Column({ nullable: true })
   volume: string;
 
-  @OneToMany(() => Image, (image) => image.path, {
+  @OneToMany(() => Image, (image) => image.good, {
     cascade: true,
     nullable: true,
   })
@@ -45,9 +45,9 @@ export class Good {
 
   @OneToMany(
     () => CharacteristicToTagToGood,
-    (characteristicToTagToGood) => characteristicToTagToGood.good,
+    (characteristics) => characteristics.good,
   )
-  characteristicToTagToGoods: CharacteristicToTagToGood[];
+  characteristics: CharacteristicToTagToGood[];
 
   @OneToMany(
     () => IngredientToTagToGood,

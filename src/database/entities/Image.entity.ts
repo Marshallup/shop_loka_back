@@ -1,4 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToMany,
+  OneToMany,
+} from 'typeorm';
 import { Good } from './Good.entity';
 
 @Entity()
@@ -9,6 +15,7 @@ export class Image {
   @Column()
   path: string;
 
-  @ManyToOne(() => Good, (good) => good.images)
+  @ManyToMany(() => Good, (good) => good.images)
+  @OneToMany(() => Good, (good) => good.mainPhoto)
   good: Good;
 }

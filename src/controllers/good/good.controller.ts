@@ -20,7 +20,7 @@ export class GoodController {
     return this.goodsService.findAll();
   }
 
-  @Post(':id/upload-main-image')
+  @Post(':id/update-main-image')
   @HttpCode(HttpStatus.OK)
   @UploadImg('image', FOLDERS_PATHS.GOOD_IMAGES)
   async uploadFile(

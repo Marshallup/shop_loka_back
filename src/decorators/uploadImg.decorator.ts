@@ -1,29 +1,22 @@
-import { FOLDERS_NAMES } from '@/enums/foldersNames';
 import { applyDecorators, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { existsSync, mkdirSync } from 'fs';
 import { diskStorage } from 'multer';
-import { join, parse } from 'path';
+import { parse } from 'path';
+import { getImagePath } from '@/utils/helpers';
 
 export function UploadImg(fileKey: string, folderName: string) {
-  const destPath = join(FOLDERS_NAMES.CLIENT, folderName);
-
   return applyDecorators(
     UseInterceptors(
       FileInterceptor(fileKey, {
         storage: diskStorage({
-          destination: destPath,
+          destination: folderName,
           filename: (req, file, cb) => {
-            const { id } = req.params;
-            const fileFoder = join(destPath, id);
             const filename = parse(file.originalname).name.replace(/\s/g, '');
             const extenstion = parse(file.originalname).ext;
 
-            if (!existsSync(fileFoder)) {
-              mkdirSync(fileFoder, { recursive: true });
-            }
+            const filePath = getImagePath(folderName, filename, extenstion);
 
-            cb(null, `${id}/${filename}${extenstion}`);
+            cb(null, filePath);
           },
         }),
       }),

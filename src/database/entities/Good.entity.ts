@@ -5,6 +5,7 @@ import {
   OneToMany,
   ManyToMany,
   JoinTable,
+  ManyToOne,
 } from 'typeorm';
 import { Image } from './Image.entity';
 import { Category } from './Category.entity';
@@ -15,9 +16,6 @@ import { IngredientToTagToGood } from './IngredientToTagToGood.entity';
 export class Good {
   @PrimaryGeneratedColumn()
   id: number;
-
-  @Column({ nullable: true })
-  mainPhoto: string;
 
   @Column({ type: 'varchar', length: 255 })
   title: string;
@@ -37,10 +35,16 @@ export class Good {
   @Column({ nullable: true })
   volume: string;
 
-  @OneToMany(() => Image, (image) => image.good, {
-    cascade: true,
+  @ManyToOne(() => Image, (image) => image.good, {
     nullable: true,
+    onDelete: 'SET NULL',
   })
+  mainPhoto: Image;
+
+  @ManyToMany(() => Image, (image) => image.good, {
+    cascade: true,
+  })
+  @JoinTable()
   images: Image[];
 
   @OneToMany(

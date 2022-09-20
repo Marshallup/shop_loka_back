@@ -16,8 +16,6 @@ export default class InitialDatabaseSeed implements Seeder {
 
     const images = await factory(Image)().createMany(15);
 
-    // console.log(images, 'images');
-
     const goods = await factory(Good)({ images }).createMany(15);
     const characteristics = await factory(Characteristic)().createMany(15);
 

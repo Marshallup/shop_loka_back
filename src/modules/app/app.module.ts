@@ -7,12 +7,14 @@ import { GoodModule } from '../good/good.module';
 import { typeormConfig } from '@/config/typeorm-config';
 import { join } from 'path';
 import { FOLDERS_NAMES } from '@/enums/foldersNames';
+import { CategoryModule } from '../category/category.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot(typeormConfig),
     GoodModule,
+    CategoryModule,
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '../../../', FOLDERS_NAMES.CLIENT),
       serveStaticOptions: {

@@ -4,7 +4,6 @@ import { join, parse } from 'path';
 import { define } from 'typeorm-seeding';
 import { Image } from '../entities/Image.entity';
 import { FOLDERS_PATHS } from '../../constants/foldersPaths';
-import { FOLDERS_NAMES } from '../../enums/foldersNames';
 
 define(Image, () => {
   const image = new Image();
@@ -32,7 +31,7 @@ define(Image, () => {
 
     copyFileSync(copiedImagePath, rootDestPath);
 
-    image.path = join(FOLDERS_NAMES.CLIENT, imagePath);
+    image.path = join(FOLDERS_PATHS.GOOD_IMAGES, imagePath);
   } catch (error) {
     console.error(error, 'ошибка при установке главного фото');
   }

@@ -59,9 +59,8 @@ export class Good {
   )
   ingredientToTagToGood: IngredientToTagToGood[];
 
-  @ManyToMany(() => Category, (category) => category.good, {
+  @ManyToOne(() => Category, (category) => category.good, {
     cascade: true,
   })
-  @JoinTable()
-  categories: Category[];
+  category: Category;
 }

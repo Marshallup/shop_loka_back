@@ -11,7 +11,7 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 
-@Controller('good')
+@Controller('goods')
 export class GoodController {
   constructor(private goodsService: GoodService) {}
 

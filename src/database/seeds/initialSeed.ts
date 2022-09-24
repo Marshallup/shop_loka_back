@@ -12,11 +12,9 @@ export default class InitialDatabaseSeed implements Seeder {
   public async run(factory: Factory, __connection: Connection): Promise<void> {
     const tags = await factory(Tag)().createMany(15);
 
-    await factory(Category)().createMany(15);
-
+    const categories = await factory(Category)().createMany(15);
     const images = await factory(Image)().createMany(15);
-
-    const goods = await factory(Good)({ images }).createMany(15);
+    const goods = await factory(Good)({ images, categories }).createMany(15);
     const characteristics = await factory(Characteristic)().createMany(15);
 
     await factory(CharacteristicToTagToGood)({

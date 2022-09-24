@@ -18,7 +18,9 @@ export class GoodService {
   async findAll(): Promise<Good[]> {
     return this.goodsRepository.find({
       relations: {
-        categories: true,
+        category: true,
+        images: true,
+        mainPhoto: true,
         characteristics: {
           tag: true,
           characteristic: true,

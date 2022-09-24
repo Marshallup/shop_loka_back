@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { Good } from './Good.entity';
 
 @Entity()
@@ -9,6 +9,6 @@ export class Category {
   @Column()
   title: string;
 
-  @ManyToMany(() => Good, (good) => good.categories)
-  good: Good;
+  @OneToMany(() => Good, (good) => good.category)
+  good: Good[];
 }

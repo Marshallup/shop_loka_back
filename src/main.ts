@@ -1,17 +1,22 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from '@/modules/app/app.module';
-import { Logger } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 
 const logger = new Logger();
 const port = 5551;
 
 (async function () {
   const app = await NestFactory.create(AppModule, {
+    bodyParser: true,
     cors: {
       credentials: true,
     },
   });
-
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+    }),
+  );
   app.setGlobalPrefix('api/v1');
   await app.listen(port);
 

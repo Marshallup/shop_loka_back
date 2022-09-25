@@ -1,6 +1,8 @@
 import { FOLDERS_PATHS } from '@/constants/foldersPaths';
+import { JsonQuery } from '@/decorators/jsonQuery.decorator';
 import { UploadImg } from '@/decorators/uploadImg.decorator';
 import { GoodService } from '@/services/good/good.service';
+import { IGetAllFilter } from '@/services/good/types';
 import {
   Controller,
   Get,
@@ -16,8 +18,11 @@ export class GoodController {
   constructor(private goodsService: GoodService) {}
 
   @Get()
-  async getAll() {
-    return this.goodsService.findAll();
+  async getAll(
+    @JsonQuery('filter')
+    filter: IGetAllFilter,
+  ) {
+    return this.goodsService.findAll(filter);
   }
 
   @Post(':id/update-main-image')

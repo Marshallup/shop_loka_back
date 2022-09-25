@@ -4,8 +4,11 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { existsSync, readdirSync, rmSync } from 'fs';
 import { basename, dirname, join } from 'path';
-import { Repository } from 'typeorm';
+import { FindOptionsWhere, Repository } from 'typeorm';
 import { ImageService } from '../image/image.service';
+import { FILTER_ALL } from '@/constants/query';
+import { IGetAllFilter } from './types';
+import { Category } from '@/database/entities/Category.entity';
 
 @Injectable()
 export class GoodService {
@@ -15,7 +18,15 @@ export class GoodService {
     private imageService: ImageService,
   ) {}
 
-  async findAll(): Promise<Good[]> {
+  async findAll(filter?: IGetAllFilter): Promise<Good[]> {
+    const whereFilter: { category?: FindOptionsWhere<Category> } = {};
+
+    if (filter?.categoryID && filter.categoryID !== FILTER_ALL) {
+      whereFilter.category = {
+        id: filter.categoryID,
+      };
+    }
+
     return this.goodsRepository.find({
       relations: {
         category: true,
@@ -25,6 +36,9 @@ export class GoodService {
           tag: true,
           characteristic: true,
         },
+      },
+      where: {
+        ...whereFilter,
       },
     });
   }

@@ -1,5 +1,13 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-import { CharacteristicToTagToGood } from './CharacteristicToTagToGood.entity';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToMany,
+  ManyToMany,
+} from 'typeorm';
+import { Characteristic } from './Characteristic.entity';
+// import { CharacteristicToTagToGood } from './CharacteristicToTagToGood.entity';
+import { Good } from './Good.entity';
 import { IngredientToTagToGood } from './IngredientToTagToGood.entity';
 
 @Entity()
@@ -10,11 +18,17 @@ export class Tag {
   @Column()
   title: string;
 
-  @OneToMany(
-    () => CharacteristicToTagToGood,
-    (characteristicToTag) => characteristicToTag.tag,
-  )
-  characteristicToTagToGoods: CharacteristicToTagToGood[];
+  @ManyToMany(() => Good, (good) => good.tags)
+  good: Good;
+
+  @OneToMany(() => Characteristic, (characteristic) => characteristic.tag)
+  characteristics: Characteristic[];
+
+  // @OneToMany(
+  //   () => CharacteristicToTagToGood,
+  //   (characteristicToTag) => characteristicToTag.tag,
+  // )
+  // characteristicToTagToGoods: CharacteristicToTagToGood[];
 
   @OneToMany(
     () => IngredientToTagToGood,

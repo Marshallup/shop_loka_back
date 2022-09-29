@@ -3,7 +3,6 @@ import { Connection } from 'typeorm';
 import { Tag } from '../entities/Tag.entity';
 import { Good } from '../entities/Good.entity';
 import { Characteristic } from '../entities/Characteristic.entity';
-import { CharacteristicToTagToGood } from '../entities/CharacteristicToTagToGood.entity';
 import { Category } from '../entities/Category.entity';
 import { Image } from '../entities/Image.entity';
 
@@ -14,14 +13,8 @@ export default class InitialDatabaseSeed implements Seeder {
 
     const categories = await factory(Category)().createMany(15);
     const images = await factory(Image)().createMany(15);
-    const goods = await factory(Good)({ images, categories }).createMany(15);
-    const characteristics = await factory(Characteristic)().createMany(15);
-
-    await factory(CharacteristicToTagToGood)({
-      tags,
-      goods,
-      characteristics,
-    }).createMany(15);
+    await factory(Good)({ images, categories, tags }).createMany(15);
+    await factory(Characteristic)({ tags }).createMany(15);
 
     // await factory(Post)()
     //   .map(async (post) => {

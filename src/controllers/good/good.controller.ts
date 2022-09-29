@@ -11,6 +11,7 @@ import {
   Param,
   HttpCode,
   HttpStatus,
+  HttpException,
 } from '@nestjs/common';
 
 @Controller('goods')
@@ -23,6 +24,18 @@ export class GoodController {
     filter: IGetAllFilter,
   ) {
     return this.goodsService.findAll(filter);
+  }
+
+  @Get(':id')
+  async getByID(@Param('id') id: number) {
+    if (!isNaN(+id)) {
+      return this.goodsService.findByID(id);
+    }
+
+    throw new HttpException(
+      'Неккоректный айди для запроса',
+      HttpStatus.BAD_REQUEST,
+    );
   }
 
   @Post(':id/update-main-image')

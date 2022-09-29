@@ -9,8 +9,9 @@ import {
 } from 'typeorm';
 import { Image } from './Image.entity';
 import { Category } from './Category.entity';
-import { CharacteristicToTagToGood } from './CharacteristicToTagToGood.entity';
+// import { CharacteristicToTagToGood } from './CharacteristicToTagToGood.entity';
 import { IngredientToTagToGood } from './IngredientToTagToGood.entity';
+import { Tag } from './Tag.entity';
 
 @Entity()
 export class Good {
@@ -47,11 +48,15 @@ export class Good {
   @JoinTable()
   images: Image[];
 
-  @OneToMany(
-    () => CharacteristicToTagToGood,
-    (characteristics) => characteristics.good,
-  )
-  characteristics: CharacteristicToTagToGood[];
+  @ManyToMany(() => Tag, (tag) => tag.good)
+  @JoinTable()
+  tags: Tag[];
+
+  // @OneToMany(
+  //   () => CharacteristicToTagToGood,
+  //   (characteristics) => characteristics.good,
+  // )
+  // characteristics: CharacteristicToTagToGood[];
 
   @OneToMany(
     () => IngredientToTagToGood,

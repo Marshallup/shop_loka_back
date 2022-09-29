@@ -21,3 +21,23 @@ export function getImagePath(
 
   return `${fileFolderDate}/${name}_${v4()}${extenstion}`;
 }
+
+export function getRandomIdx(maxIdx = 15) {
+  return Math.floor(Math.random() * maxIdx);
+}
+
+export function getRandomUniqIdx<T extends unknown[]>(arr: T, maxIdx = 15) {
+  const randomIdxs = [];
+
+  return function innerFn() {
+    const randomIdx = getRandomIdx(maxIdx);
+
+    if (randomIdxs.indexOf(randomIdx) > -1) {
+      return innerFn();
+    }
+
+    randomIdxs.push(randomIdx);
+
+    return arr[randomIdx];
+  };
+}

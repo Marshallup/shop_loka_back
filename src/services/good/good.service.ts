@@ -18,6 +18,71 @@ export class GoodService {
     private imageService: ImageService,
   ) {}
 
+  // formatGoodCharacteristics(good: Good) {
+  //   const chArr = [];
+
+  //   good.characteristics?.forEach((ch) => {
+  //     const tagID = ch.tag.id;
+
+  //     if (tagID) {
+  //       const chsByTagId = good.characteristics.filter(
+  //         (item) => item?.tag?.id === tagID,
+  //       );
+
+  //       chArr.push({
+  //         id: ch.id,
+  //         tag: {
+  //           ...ch.tag,
+  //         },
+  //         characteristics: chsByTagId?.map((item) => ({
+  //           ...item.characteristic,
+  //         })),
+  //       });
+  //     }
+  //   });
+
+  //   return {
+  //     ...good,
+  //     characteristics: chArr,
+  //   };
+  // }
+
+  async findByID(id: number) {
+    // const res = await this.goodsRepository
+    //   .createQueryBuilder('good')
+    //   .leftJoinAndSelect('good.category', 'category')
+    //   .leftJoinAndSelect('good.images', 'images')
+    //   .leftJoinAndSelect('good.mainPhoto', 'mainPhoto')
+    //   .leftJoinAndSelect('good.characteristics', 'characteristics')
+    //   .leftJoinAndSelect('characteristics.tag', 'tag')
+    //   .leftJoinAndSelect('characteristics.characteristic', 'characteristic')
+    //   .where('good.id = :id', { id })
+    //   .getOne();
+
+    // console.log(res, 'res');
+    // return res;
+
+    return this.goodsRepository.findOne({
+      where: { id },
+      relations: {
+        category: true,
+        images: true,
+        mainPhoto: true,
+        tags: {
+          characteristics: true,
+        },
+        // characteristics: {
+        //   tag: true,
+        //   characteristic: true,
+        // },
+      },
+    });
+
+    // res.characteristics = [{ ee: 'ss' }];
+
+    // return res;
+  }
+
   async findAll(filter?: IGetAllFilter): Promise<Good[]> {
     const whereFilter: { category?: FindOptionsWhere<Category> } = {};
 
@@ -32,10 +97,6 @@ export class GoodService {
         category: true,
         images: true,
         mainPhoto: true,
-        characteristics: {
-          tag: true,
-          characteristic: true,
-        },
       },
       where: {
         ...whereFilter,

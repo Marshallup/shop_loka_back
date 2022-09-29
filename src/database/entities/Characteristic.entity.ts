@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-import { CharacteristicToTagToGood } from './CharacteristicToTagToGood.entity';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Tag } from './Tag.entity';
+// import { CharacteristicToTagToGood } from './CharacteristicToTagToGood.entity';
 
 @Entity()
 export class Characteristic {
@@ -9,9 +10,12 @@ export class Characteristic {
   @Column()
   title: string;
 
-  @OneToMany(
-    () => CharacteristicToTagToGood,
-    (characteristicToTagToGood) => characteristicToTagToGood.characteristic,
-  )
-  characteristicToTagToGoods: CharacteristicToTagToGood[];
+  @ManyToOne(() => Tag, (tag) => tag.characteristics)
+  tag: Tag;
+
+  // @OneToMany(
+  //   () => CharacteristicToTagToGood,
+  //   (characteristicToTagToGood) => characteristicToTagToGood.characteristic,
+  // )
+  // characteristicToTagToGoods: CharacteristicToTagToGood[];
 }

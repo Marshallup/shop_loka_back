@@ -3,35 +3,22 @@ import { define, Factory } from 'typeorm-seeding';
 import { Category } from '../entities/Category.entity';
 import { Good } from '../entities/Good.entity';
 import { Image } from '../entities/Image.entity';
-
-function getRandomIdx() {
-  return Math.floor(Math.random() * 15);
-}
+import { Tag } from '../entities/Tag.entity';
+import { getRandomUniqIdx } from '../../utils/helpers';
 
 define(
   Good,
   (
     _factory: Factory,
-    { images, categories }: { images: Image[]; categories: Category[] },
+    {
+      images,
+      categories,
+      tags,
+    }: { images: Image[]; categories: Category[]; tags: Tag[] },
   ) => {
-    function getRandomInitImg<T>(arr: T) {
-      const randomIdxs = [];
-
-      return function innerFn() {
-        const randomIdx = getRandomIdx();
-
-        if (randomIdxs.indexOf(randomIdx) > -1) {
-          return innerFn();
-        }
-
-        randomIdxs.push(randomIdx);
-
-        return arr[randomIdx];
-      };
-    }
-
-    const getRandomImg = getRandomInitImg(images);
-    const getRandomCategory = getRandomInitImg(categories);
+    const getRandomImg = getRandomUniqIdx(images);
+    const getRandomCategory = getRandomUniqIdx(categories);
+    const getRandomTag = getRandomUniqIdx(tags);
 
     const good = new Good();
 
@@ -44,6 +31,7 @@ define(
     good.volume = String(Math.floor(Math.random() * 220));
     good.category = getRandomCategory();
     good.images = [getRandomImg(), getRandomImg(), getRandomImg()];
+    good.tags = [getRandomTag(), getRandomTag(), getRandomTag()];
 
     return good;
   },

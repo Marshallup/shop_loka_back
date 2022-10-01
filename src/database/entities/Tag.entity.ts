@@ -6,9 +6,8 @@ import {
   ManyToMany,
 } from 'typeorm';
 import { Characteristic } from './Characteristic.entity';
-// import { CharacteristicToTagToGood } from './CharacteristicToTagToGood.entity';
 import { Good } from './Good.entity';
-import { IngredientToTagToGood } from './IngredientToTagToGood.entity';
+import { Ingredient } from './Ingredient.entity';
 
 @Entity()
 export class Tag {
@@ -24,15 +23,6 @@ export class Tag {
   @OneToMany(() => Characteristic, (characteristic) => characteristic.tag)
   characteristics: Characteristic[];
 
-  // @OneToMany(
-  //   () => CharacteristicToTagToGood,
-  //   (characteristicToTag) => characteristicToTag.tag,
-  // )
-  // characteristicToTagToGoods: CharacteristicToTagToGood[];
-
-  @OneToMany(
-    () => IngredientToTagToGood,
-    (ingredientToTagToGood) => ingredientToTagToGood.tag,
-  )
-  ingredientToTagToGood: IngredientToTagToGood[];
+  @OneToMany(() => Ingredient, (ingredient) => ingredient.tag)
+  ingredients: Ingredient[];
 }

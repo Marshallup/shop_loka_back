@@ -48,20 +48,6 @@ export class GoodService {
   // }
 
   async findByID(id: number) {
-    // const res = await this.goodsRepository
-    //   .createQueryBuilder('good')
-    //   .leftJoinAndSelect('good.category', 'category')
-    //   .leftJoinAndSelect('good.images', 'images')
-    //   .leftJoinAndSelect('good.mainPhoto', 'mainPhoto')
-    //   .leftJoinAndSelect('good.characteristics', 'characteristics')
-    //   .leftJoinAndSelect('characteristics.tag', 'tag')
-    //   .leftJoinAndSelect('characteristics.characteristic', 'characteristic')
-    //   .where('good.id = :id', { id })
-    //   .getOne();
-
-    // console.log(res, 'res');
-    // return res;
-
     return this.goodsRepository.findOne({
       where: { id },
       relations: {
@@ -70,17 +56,10 @@ export class GoodService {
         mainPhoto: true,
         tags: {
           characteristics: true,
+          ingredients: true,
         },
-        // characteristics: {
-        //   tag: true,
-        //   characteristic: true,
-        // },
       },
     });
-
-    // res.characteristics = [{ ee: 'ss' }];
-
-    // return res;
   }
 
   async findAll(filter?: IGetAllFilter): Promise<Good[]> {

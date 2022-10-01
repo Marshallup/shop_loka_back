@@ -23,7 +23,7 @@ define(
     const good = new Good();
 
     good.title = faker.random.word();
-    good.desc = faker.lorem.paragraphs();
+    good.desc = `<p>${faker.lorem.paragraphs()}</p><p>${faker.lorem.paragraphs()}</p>`;
     good.except = faker.lorem.paragraph();
     good.howUse = faker.lorem.paragraph();
     good.mainPhoto = getRandomImg();

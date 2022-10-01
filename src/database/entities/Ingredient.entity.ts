@@ -1,5 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-import { IngredientToTagToGood } from './IngredientToTagToGood.entity';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Tag } from './Tag.entity';
 
 @Entity()
 export class Ingredient {
@@ -9,9 +9,6 @@ export class Ingredient {
   @Column()
   title: string;
 
-  @OneToMany(
-    () => IngredientToTagToGood,
-    (ingredientToTagToGood) => ingredientToTagToGood.ingredient,
-  )
-  ingredientToTagToGoods: IngredientToTagToGood[];
+  @ManyToOne(() => Tag, (tag) => tag.ingredients)
+  tag: Tag;
 }

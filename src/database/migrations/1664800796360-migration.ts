@@ -1,15 +1,15 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class migration1664531451689 implements MigrationInterface {
-    name = 'migration1664531451689'
+export class migration1664800796360 implements MigrationInterface {
+    name = 'migration1664800796360'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`CREATE TABLE "image" ("id" SERIAL NOT NULL, "path" character varying NOT NULL, CONSTRAINT "PK_d6db1ab4ee9ad9dbe86c64e4cc3" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "characteristic" ("id" SERIAL NOT NULL, "title" character varying NOT NULL, "tagId" integer, CONSTRAINT "PK_88f998ec743440a5c758e08ece4" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "ingredient" ("id" SERIAL NOT NULL, "title" character varying NOT NULL, "tagId" integer, CONSTRAINT "PK_6f1e945604a0b59f56a57570e98" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "tag" ("id" SERIAL NOT NULL, "title" character varying NOT NULL, CONSTRAINT "PK_8e4052373c579afc1471f526760" PRIMARY KEY ("id"))`);
-        await queryRunner.query(`CREATE TABLE "good" ("id" SERIAL NOT NULL, "title" character varying(255) NOT NULL, "desc" character varying NOT NULL, "except" character varying, "price" integer NOT NULL, "howUse" character varying, "volume" character varying, "mainPhotoId" integer, "categoryId" integer, CONSTRAINT "PK_0aceec75d523693a51fad812e2e" PRIMARY KEY ("id"))`);
-        await queryRunner.query(`CREATE TABLE "category" ("id" SERIAL NOT NULL, "title" character varying NOT NULL, CONSTRAINT "PK_9c4e4a89e3674fc9f382d733f03" PRIMARY KEY ("id"))`);
+        await queryRunner.query(`CREATE TABLE "good" ("id" SERIAL NOT NULL, "title" character varying(255) NOT NULL, "desc" character varying NOT NULL, "except" character varying, "price" integer NOT NULL, "howUse" character varying, "volume" character varying, "vendorCode" character varying NOT NULL, "mainPhotoId" integer, "categoryId" integer, CONSTRAINT "PK_0aceec75d523693a51fad812e2e" PRIMARY KEY ("id"))`);
+        await queryRunner.query(`CREATE TABLE "category" ("id" SERIAL NOT NULL, "title" character varying NOT NULL, CONSTRAINT "UQ_9f16dbbf263b0af0f03637fa7b5" UNIQUE ("title"), CONSTRAINT "PK_9c4e4a89e3674fc9f382d733f03" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "user" ("id" SERIAL NOT NULL, "firstName" character varying NOT NULL, "lastName" character varying NOT NULL, "age" integer NOT NULL, "test" character varying NOT NULL, CONSTRAINT "PK_cace4a159ff9f2512dd42373760" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "good_images_image" ("goodId" integer NOT NULL, "imageId" integer NOT NULL, CONSTRAINT "PK_db3676377afea183243c42049dd" PRIMARY KEY ("goodId", "imageId"))`);
         await queryRunner.query(`CREATE INDEX "IDX_f5567cd9106b3176afb530abca" ON "good_images_image" ("goodId") `);

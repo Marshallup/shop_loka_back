@@ -22,14 +22,15 @@ define(
 
     const good = new Good();
 
-    good.title = faker.random.word();
-    good.desc = `<p>${faker.lorem.paragraphs()}</p><p>${faker.lorem.paragraphs()}</p>`;
+    good.title = faker.commerce.productName();
+    good.desc = `<p>${faker.commerce.productDescription()}</p><p>${faker.lorem.paragraphs()}</p>`;
     good.except = faker.lorem.paragraph();
     good.howUse = faker.lorem.paragraph();
     good.mainPhoto = getRandomImg();
     good.price = +faker.commerce.price(100, 2000, 0);
     good.volume = String(Math.floor(Math.random() * 220));
     good.category = getRandomCategory();
+    good.vendorCode = `${faker.random.numeric()}-${faker.random.word()}`;
     good.images = [getRandomImg(), getRandomImg(), getRandomImg()];
     good.tags = [getRandomTag(), getRandomTag(), getRandomTag()];
 

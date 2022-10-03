@@ -1,11 +1,21 @@
 import { faker } from '@faker-js/faker';
-import { define } from 'typeorm-seeding';
+import { define, Factory } from 'typeorm-seeding';
 import { Category } from '../entities/Category.entity';
 
-define(Category, () => {
-  const category = new Category();
+define(
+  Category,
+  (
+    _factory: Factory,
+    {
+      getUniqCategory,
+    }: { getUniqCategory: (word: string | (() => string)) => string },
+  ) => {
+    const category = new Category();
 
-  category.title = faker.random.word();
+    const title = getUniqCategory(faker.commerce.department);
 
-  return category;
-});
+    category.title = title;
+
+    return category;
+  },
+);

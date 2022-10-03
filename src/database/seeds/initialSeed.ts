@@ -1,5 +1,6 @@
 import { Factory, Seeder } from 'typeorm-seeding';
 import { Connection } from 'typeorm';
+import { getInitUniqWord } from '../../utils/helpers';
 import { Tag } from '../entities/Tag.entity';
 import { Good } from '../entities/Good.entity';
 import { Characteristic } from '../entities/Characteristic.entity';
@@ -10,9 +11,13 @@ import { Ingredient } from '../entities/Ingredient.entity';
 export default class InitialDatabaseSeed implements Seeder {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public async run(factory: Factory, __connection: Connection): Promise<void> {
+    const getUniqCategory = getInitUniqWord();
+
     const tags = await factory(Tag)().createMany(15);
 
-    const categories = await factory(Category)().createMany(15);
+    const categories = await factory(Category)({ getUniqCategory }).createMany(
+      15,
+    );
     const images = await factory(Image)().createMany(15);
     await factory(Good)({ images, categories, tags }).createMany(15);
     await factory(Characteristic)({ tags }).createMany(15);

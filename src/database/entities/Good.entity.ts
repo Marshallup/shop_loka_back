@@ -33,6 +33,9 @@ export class Good {
   @Column({ nullable: true })
   volume: string;
 
+  @Column({ nullable: false })
+  vendorCode: string;
+
   @ManyToOne(() => Image, (image) => image.good, {
     nullable: true,
     onDelete: 'SET NULL',

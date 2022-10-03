@@ -41,3 +41,19 @@ export function getRandomUniqIdx<T extends unknown[]>(arr: T, maxIdx = 15) {
     return arr[randomIdx];
   };
 }
+
+export function getInitUniqWord() {
+  const arrUniqWord: string[] = [];
+
+  return function innerFn(word: string | (() => string)): string {
+    const w = word instanceof Function ? word() : word;
+
+    if (arrUniqWord.includes(w)) {
+      return innerFn(word);
+    }
+
+    arrUniqWord.push(w);
+
+    return w;
+  };
+}

@@ -84,7 +84,6 @@ export class GoodService {
   }
 
   async setMainImage(id: string, imagePath: string) {
-    console.log(imagePath, 'imagePth');
     const image = await this.imageService.createImage(imagePath);
 
     const result = await this.goodsRepository.update(id, {

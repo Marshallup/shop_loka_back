@@ -18,35 +18,6 @@ export class GoodService {
     private imageService: ImageService,
   ) {}
 
-  // formatGoodCharacteristics(good: Good) {
-  //   const chArr = [];
-
-  //   good.characteristics?.forEach((ch) => {
-  //     const tagID = ch.tag.id;
-
-  //     if (tagID) {
-  //       const chsByTagId = good.characteristics.filter(
-  //         (item) => item?.tag?.id === tagID,
-  //       );
-
-  //       chArr.push({
-  //         id: ch.id,
-  //         tag: {
-  //           ...ch.tag,
-  //         },
-  //         characteristics: chsByTagId?.map((item) => ({
-  //           ...item.characteristic,
-  //         })),
-  //       });
-  //     }
-  //   });
-
-  //   return {
-  //     ...good,
-  //     characteristics: chArr,
-  //   };
-  // }
-
   async findByID(id: number) {
     return this.goodsRepository.findOne({
       where: { id },

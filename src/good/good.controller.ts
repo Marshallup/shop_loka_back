@@ -1,8 +1,8 @@
 import { FOLDERS_PATHS } from '@/constants/foldersPaths';
-import { JsonQuery } from '@/decorators/jsonQuery.decorator';
-import { UploadImg } from '@/decorators/uploadImg.decorator';
-import { GoodService } from '@/services/good/good.service';
-import { IGetAllFilter } from '@/services/good/types';
+import { JsonQuery } from '@/decorators/json-query.decorator';
+import { UploadImg } from '@/decorators/upload-img.decorator';
+import { GoodService } from '@/good/good.service';
+import { IGetAllFilter } from '@/good/types';
 import {
   Controller,
   Get,

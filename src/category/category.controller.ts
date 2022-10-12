@@ -1,4 +1,4 @@
-import { CategoryService } from '@/services/category/category.service';
+import { CategoryService } from '@/category/category.service';
 import { Controller, Get } from '@nestjs/common';
 
 @Controller('categories')

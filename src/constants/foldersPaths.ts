@@ -1,4 +1,4 @@
-import { FOLDERS_NAMES } from '@/enums/foldersNames';
+import { FOLDERS_NAMES } from '@/enums/folder-names.enum';
 import { join } from 'path';
 
 export const FOLDERS_PATHS = Object.freeze({

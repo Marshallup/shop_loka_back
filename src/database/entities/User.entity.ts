@@ -1,4 +1,12 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Exclude } from 'class-transformer';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  OneToMany,
+} from 'typeorm';
+import { Cart } from './Cart.entity';
 import { Role } from './Role.entity';
 
 @Entity()
@@ -12,11 +20,15 @@ export class User {
   @Column({ unique: true, nullable: false })
   email: string;
 
-  @Column()
+  @Column({ select: false })
+  @Exclude({ toPlainOnly: true })
   password: string;
 
   @ManyToOne(() => Role, (role) => role.user)
   role: Role;
+
+  @OneToMany(() => Cart, (cart) => cart.user)
+  carts: Cart[];
 
   // @Column()
   // firstName: string;

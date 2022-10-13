@@ -10,6 +10,7 @@ import { FOLDERS_NAMES } from '@/enums/folder-names.enum';
 import { CategoryModule } from '../category/category.module';
 import { AuthModule } from '../auth/auth.module';
 import { UserModule } from '../user/user.module';
+import { CartModule } from '@/cart/cart.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { UserModule } from '../user/user.module';
     AuthModule,
     UserModule,
     GoodModule,
+    CartModule,
     CategoryModule,
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '../../../', FOLDERS_NAMES.CLIENT),

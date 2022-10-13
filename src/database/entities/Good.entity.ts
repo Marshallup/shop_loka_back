@@ -9,6 +9,7 @@ import {
 import { Image } from './Image.entity';
 import { Category } from './Category.entity';
 import { Tag } from './Tag.entity';
+import { Cart } from './Cart.entity';
 
 @Entity()
 export class Good {
@@ -51,6 +52,9 @@ export class Good {
   @ManyToMany(() => Tag, (tag) => tag.good)
   @JoinTable()
   tags: Tag[];
+
+  @ManyToMany(() => Cart, (cart) => cart.goods)
+  carts: Cart[];
 
   @ManyToOne(() => Category, (category) => category.good, {
     cascade: true,

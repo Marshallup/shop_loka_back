@@ -9,11 +9,13 @@ import { JwtModule } from '@nestjs/jwt';
 import { LocalStrategy } from './local.strategy';
 import { JwtStrategy } from './jwt.strategy';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { Role } from '@/database/entities/Role.entity';
+import { RoleService } from '@/role/role.service';
 
 @Module({
   imports: [
     ConfigModule,
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([User, Role]),
     PassportModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],
@@ -30,6 +32,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     LocalStrategy,
     JwtStrategy,
     ConfigService,
+    RoleService,
   ],
   controllers: [AuthController],
   exports: [],

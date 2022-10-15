@@ -5,6 +5,8 @@ import {
   Column,
   ManyToOne,
   OneToMany,
+  CreateDateColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { Cart } from './Cart.entity';
 import { Role } from './Role.entity';
@@ -24,18 +26,21 @@ export class User {
   @Exclude({ toPlainOnly: true })
   password: string;
 
-  @ManyToOne(() => Role, (role) => role.user)
+  @ManyToOne(() => Role, (role) => role.user, { nullable: false })
   role: Role;
 
   @OneToMany(() => Cart, (cart) => cart.user)
   carts: Cart[];
 
-  // @Column()
-  // firstName: string;
+  @CreateDateColumn({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP(6)',
+  })
+  created_at: Date;
 
-  // @Column()
-  // lastName: string;
-
-  // @Column()
-  // age: number;
+  @UpdateDateColumn({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP(6)',
+  })
+  updated_at: Date;
 }

@@ -48,6 +48,6 @@ export class CartController {
     @Request() { user }: UserRequest,
     @Body() createCartDto: CreateCartDto,
   ) {
-    return this.cartsService.createCart(user.id, createCartDto.goodsID);
+    return this.cartsService.createCart(user.id, createCartDto.goods);
   }
 }

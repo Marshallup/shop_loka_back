@@ -1,5 +1,8 @@
 import { Good } from '@/database/entities/Good.entity';
 
 export class CreateCartDto {
-  goodsID: Good['id'][];
+  goods: {
+    count: number;
+    goods: Good['id'];
+  }[];
 }

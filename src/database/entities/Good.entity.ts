@@ -5,11 +5,12 @@ import {
   ManyToMany,
   JoinTable,
   ManyToOne,
+  OneToMany,
 } from 'typeorm';
 import { Image } from './Image.entity';
 import { Category } from './Category.entity';
 import { Tag } from './Tag.entity';
-import { Cart } from './Cart.entity';
+import { OrderItem } from './OrderItem.entity';
 
 @Entity()
 export class Good {
@@ -37,6 +38,9 @@ export class Good {
   @Column({ nullable: false })
   vendorCode: string;
 
+  @Column({ type: 'smallint', default: 0 })
+  count: number;
+
   @ManyToOne(() => Image, (image) => image.good, {
     nullable: true,
     onDelete: 'SET NULL',
@@ -53,10 +57,10 @@ export class Good {
   @JoinTable()
   tags: Tag[];
 
-  @ManyToMany(() => Cart, (cart) => cart.goods)
-  carts: Cart[];
+  @OneToMany(() => OrderItem, (orderItem) => orderItem.good)
+  orderItems: OrderItem[];
 
-  @ManyToOne(() => Category, (category) => category.good, {
+  @ManyToOne(() => Category, (category) => category.goods, {
     cascade: true,
   })
   category: Category;

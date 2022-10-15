@@ -21,25 +21,29 @@ export class CartService {
         },
       },
       relations: {
-        goods: true,
-        user: true,
+        // goods: true,
+        orderItems: true,
       },
-      // loadRelationIds: {
-      //   relations: ['user'],
-      // },
+      loadRelationIds: {
+        relations: ['user'],
+      },
     });
   }
 
-  async createCart(userID: User['id'], goodsID: CreateCartDto['goodsID']) {
-    const cart = this.CartsRepository.create({
-      user: {
-        id: userID,
-      },
-      goods: [...goodsID.map((goodID) => ({ id: goodID }))],
-    });
+  async createCart(userID: User['id'], goodsInfo: CreateCartDto['goods']) {
+    // const cart = this.CartsRepository.create({
+    //   user: {
+    //     id: userID,
+    //   },
+    //   goods: [...goodsID.map((goodID) => ({ id: goodID }))],
+    // });
 
-    const newCart = await this.CartsRepository.save(cart);
+    // const newCart = await this.CartsRepository.save(cart);
 
-    return newCart.id;
+    // return newCart.id;
+
+    console.log(userID, goodsInfo);
+
+    return 1;
   }
 }

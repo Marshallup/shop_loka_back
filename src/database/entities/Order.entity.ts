@@ -5,25 +5,21 @@ import {
   Column,
   CreateDateColumn,
   OneToOne,
-  OneToMany,
+  UpdateDateColumn,
 } from 'typeorm';
-import { Order } from './Order.entity';
-import { OrderItem } from './OrderItem.entity';
+import { Cart } from './Cart.entity';
 import { User } from './User.entity';
 
 @Entity()
-export class Cart {
+export class Order {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column({ default: true })
   active: boolean;
 
-  @OneToOne(() => Order, (order) => order.cart, { nullable: true })
-  order: Order;
-
-  @OneToMany(() => OrderItem, (orderItem) => orderItem.cart)
-  orderItems: OrderItem[];
+  @OneToOne(() => Cart, (cart) => cart.order, { nullable: true })
+  cart: Cart;
 
   @ManyToOne(() => User, (user) => user.carts)
   user: User;
@@ -33,4 +29,10 @@ export class Cart {
     default: () => 'CURRENT_TIMESTAMP(6)',
   })
   created_at: Date;
+
+  @UpdateDateColumn({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP(6)',
+  })
+  updated_at: Date;
 }
